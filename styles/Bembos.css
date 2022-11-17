@@ -74,6 +74,21 @@ header .textos-header{
     color: antiquewhite;
 }
 
+button{
+    text-decoration:none;
+    font-weight:600;
+    font-size:20px;
+    color:#ffffff;
+    padding-top:20px;
+    padding-bottom:20px;
+    padding-left:40px;
+    padding-right:40px;
+    background-color:transparent;
+    margin-right: 60%;
+    margin-left: 5%;
+    border-color: #ffffff;
+}
+
 .contenedor-bembos{
     display: flex;
     justify-content: space-between;
