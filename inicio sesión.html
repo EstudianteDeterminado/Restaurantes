@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./Login and register/inicio sesión.css">
+    <title>Formulario Login</title>
+</head>
+<body>
+<main>
+    <div class="form-body">
+        <img src="./img/219983.png" alt="user-login">
+        <p class="text">Bienvenido</p>
+        <form action="" class="login-form">
+            <h1>Registrate</h1>
+            <input type="text" placeholder="Email" id="email2">
+            <input type="password" placeholder="Contraseña" id="pass2">
+            <br>
+            <button registro id="registro">Registrate</button>    
+            <br> 
+        
+            <h1>Inicia sesión</h1>
+            <input type="text" placeholder="Email" id="email">
+            <input type="password" placeholder="Contraseña" id="pass">
+        </form>
+        <button id="google">Iniciar con Google</button>
+        <button ingresa id="ingresar">Iniciar sesión</button>     
+    </div>
+</main>
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-analytics.js";
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js";
+        import { GoogleAuthProvider,signInWithRedirect,getRedirectResult } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js";
+        // import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js";
+
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+    
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+        apiKey: "AIzaSyCZ5xubZwHUy6EYG87c3KpCefp8-UaS0Yc",
+        authDomain: "formulario-b4a45.firebaseapp.com",
+        projectId: "formulario-b4a45",
+        storageBucket: "formulario-b4a45.appspot.com",
+        messagingSenderId: "556287622013",
+        appId: "1:556287622013:web:5a3d3623fa33343bebea14",
+        measurementId: "G-GMZRWDJ8NV"
+        };
+        
+        // Initialize Firebase y autentificación
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const analytics = getAnalytics(app);
+        const provider = new GoogleAuthProvider(app);
+        // Evento con el id ingresar
+document.getElementById("registro").addEventListener("click", function(){
+    // Obteniendo los valores escritos   
+    let email = document.getElementById("email2").value;
+    let password = document.getElementById("pass2").value;
+
+    createUserWithEmailAndPassword(auth, email, password)
+
+.then((userCredential) => {
+    // Signed in 
+    const user = userCredential.user;
+    // ...
+    alert("La cuenta se creó exitosamente ")
+})
+.catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    // ..
+    alert("La cuenta se creó exitosamente ")
+});
+
+})
+        function limpiar2(){
+            document.getElementById("limpiar2").reset();
+        }
+
+
+// Aqui se encuentran los códigos para ingresar
+document.getElementById("ingresar").addEventListener("click", function(){
+const email1 = document.getElementById("email").value;  
+const password1 = document.getElementById("pass").value;
+
+signInWithEmailAndPassword(auth, email1, password1)
+.then((userCredential) => {
+    // Signed in 
+    const user = userCredential.user;
+    // ...
+    alert("Bienvenido de nuevo")
+  // ABRIREMOS UNA NUEVA PAGINA NUEVA
+    // window.open("https://es-la.facebook.com/")})
+
+    // Abrir una página creada por ti
+    window.open("index.html")})//,"mi página favorita","width=400px, height=400px")})
+.catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    alert("No estás en el sistema")
+});                   
+})
+
+
+        function limpiar(){
+            document.getElementById("limpiar").reset();
+        }
+
+        // Creamos el evento para quq al oprimir el boton de google se ejecute las sesiones
+        document.getElementById("google").addEventListener("click",function(){
+
+            // Conectará los inicios de sesion con el Firebase
+            signInWithRedirect(auth, provider);
+            getRedirectResult(auth)
+                .then((result) => {
+                    // This gives you a Google Access Token. You can use it to access Google APIs.
+                    const credential = GoogleAuthProvider.credentialFromResult(result);
+                    const token = credential.accessToken;
+
+                    // The signed-in user info.
+                    const user = result.user;
+                }).catch((error) => {
+                    // Handle Errors here.
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    // The email of the user's account used.
+                    const email = error.customData.email;
+                    // The AuthCredential type that was used.
+                    const credential = GoogleAuthProvider.credentialFromError(error);
+                    // ...
+});
+
+        })
+
+    </script>
+</body>
+</html>
