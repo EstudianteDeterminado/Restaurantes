@@ -124,6 +124,7 @@ signInWithEmailAndPassword(auth, email1, password1)
 
                     // The signed-in user info.
                     const user = result.user;
+                    window.open("index.html")
                 }).catch((error) => {
                     // Handle Errors here.
                     const errorCode = error.code;
