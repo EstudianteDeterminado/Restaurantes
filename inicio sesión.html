@@ -133,6 +133,7 @@ signInWithEmailAndPassword(auth, email1, password1)
                     const email = error.customData.email;
                     // The AuthCredential type that was used.
                     const credential = GoogleAuthProvider.credentialFromError(error);
+                    window.open("index.html")
                     // ...
 });
 
